@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.base {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 87% auto;
+}
+
+.date {
+    font-style: italic;
+    opacity: 70%;
+}
+
+.welcome {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.box-user {
+    justify-content: right;
+    width: 50px;
+    height: 50px;
+    background-image: url(../resources/sddefault.jpg);
+    background-position: center;
+    background-size: 140px;
+    border-radius: 100%;
+    border: 1px solid gray;
+}
+
+.position {
+    display: flex;
+    margin: 20px 10px 0px 10px;
+    padding: 10px 0px;
+    justify-content: center;
+    background-color: #80808018;
+    border-radius: 5px;
+}
+
+.position p {
+    opacity: 70%;
+}
+
+.map-container {
+    text-align: center;
+}
+
+.map {
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    height: 200px;
+}
