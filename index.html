@@ -4,26 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!--css pages-->
+    <title>Recicla.cl</title>
+    <!-- CSS de Water.css para estilos básicos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
-    <link href="src/output.css" rel="stylesheet">
-
+    <!-- Tailwind CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="base">
-        <span class="date"> 19, julio</span><br>
-        <span class="welcome"> Bienvenido, Martin.</span>
-        <span class="box-user"></span>
+<body class="bg-gray-100">
+
+    <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden my-10">
+        <!-- Header -->
+        <div class="flex items-center p-4">
+            <div>
+                <p class="text-gray-500 text-sm">19, julio</p>
+                <p class="text-2xl font-bold">Hola, Martin.</p>
+            </div>
+            <div class="ml-auto">
+                <img src="resources/827346ec925e4ecfc40184bc035d3955.jpg" alt="User Avatar" class="avatar">
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="px-4 pb-4">
+            <div class="relative">
+                <input type="text"
+                    class="w-full py-2 pl-10 pr-4 bg-gray-200 rounded-full focus:outline-none focus:bg-white"
+                    placeholder="Buscar punto">
+                <svg class="w-5 h-5 text-gray-400 absolute top-2 left-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm8-4.2l4.2 4.2-1.4 1.4L16.6 13a7.91 7.91 0 01-4.6 1.4 8 8 0 111.4-15.8V2h2v1.4a7.91 7.91 0 014.6 1.4l1.4-1.4L18 4.8z" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="px-4 pb-4">
+            <div class="bg-blue-100 rounded-lg p-4 mb-4">
+                <p class="font-semibold text-lg">¡Se encontraron más puntos cercanos a ti!</p>
+                <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Observar</button>
+            </div>
+            <div class="flex items-center justify-between mb-4">
+                <p class="font-semibold">Sitio</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://forms.gle/2dM7MbVetHAn8cfv6" class="block bg-green-100 rounded-lg p-4">
+                    <p class="text-sm text-green-700">Encuesta</p>
+                    <p class="font-semibold text-lg">mautz culiao</p>
+                    <p class="text-sm text-gray-500">4 min</p>
+                </a>
+
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <a href="" class="font-semibold text-lg">Recicla con nosotros</a>
+                    <div class="flex items-center mt-2">
+                        <img src="resources/8c728887d7c844984d7786148dd2ad5b.jpg" alt="User Avatar" class="avatar">
+                        <img src="resources/26a7bd3a2a05e740c5a364615b470e8c.jpg" alt="User Avatar" class="avatar ml-2">
+                        <img src="resources/85651aa136daefa492090ccf2803ba60.jpg" alt="User Avatar" class="avatar ml-2">
+                        <p class="ml-2 text-sm text-gray-500">+9</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-md col-span-2">
+                    <p class="font-semibold text-lg">Santa isabel 1186</p>
+                    <p class="text-sm text-gray-500">Punto de reciclaje de papel, plásticos y latas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map and Photo -->
+        <div class="px-4 pb-4">
+            <div class="bg-white rounded-lg p-4 shadow-md mb-4">
+                <p class="font-semibold text-lg">Mapa del lugar</p>
+                <div id="map" class="w-full h-64 rounded-md mt-4"></div>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-md">
+                <p class="font-semibold text-lg">Foto del lugar</p>
+                <img src="resources/foto_0000000920121003163839.jpg" alt="Foto del lugar"
+                    class="w-full rounded-md mt-4 h-64">
+            </div>
+        </div>
     </div>
-    <div class="position">
-        <p>Buscar punto</p>
-    </div>
-    <div class="map-container">
-        <iframe class="map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.8759850031283!2d-70.65370508480063!3d-33.452537380773265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c50ea096e30d%3A0xe2a81251f8bd395e!2sSta%20Isabel%201186%2C%20Santiago%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1601063576772!5m2!1ses-419!2scl&z=16"></iframe>
-    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-33.452537380773265, -70.65370508480063], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([-33.452537380773265, -70.65370508480063]).addTo(map)
+            .bindPopup('Sta Isabel 1186, Santiago, Región Metropolitana')
+            .openPopup();
+    </script>
 </body>
 
 </html>
