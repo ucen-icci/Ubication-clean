@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recicla.cl</title>
+    <title>Recicla.cen</title>
     <!-- CSS de Water.css para estilos básicos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
     <!-- Tailwind CSS -->
@@ -17,6 +17,62 @@
             height: 40px;
             border-radius: 50%;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            /* Ajusta el tamaño máximo según sea necesario */
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        .progress-bar-fill {
+            background-color: #4caf50;
+            height: 100%;
+            width: 50%;
+            /* Ajusta el porcentaje según el progreso */
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 
@@ -27,10 +83,11 @@
         <div class="flex items-center p-4">
             <div>
                 <p class="text-gray-500 text-sm">19, julio</p>
-                <p class="text-2xl font-bold">Hola, Martin.</p>
+                <p class="text-2xl font-bold">Hola, Martín.</p>
             </div>
             <div class="ml-auto">
-                <img src="resources/827346ec925e4ecfc40184bc035d3955.jpg" alt="User Avatar" class="avatar">
+                <a href="#" id="openModal"> <img src="resources/827346ec925e4ecfc40184bc035d3955.jpg" alt="User Avatar"
+                        class="avatar"></a>
             </div>
         </div>
 
@@ -59,7 +116,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a href="https://forms.gle/2dM7MbVetHAn8cfv6" class="block bg-green-100 rounded-lg p-4">
                     <p class="text-sm text-green-700">Encuesta</p>
-                    <p class="font-semibold text-lg">mautz culiao</p>
+                    <p class="font-semibold text-lg">Recicla central</p>
                     <p class="text-sm text-gray-500">4 min</p>
                 </a>
 
@@ -69,7 +126,7 @@
                         <img src="resources/8c728887d7c844984d7786148dd2ad5b.jpg" alt="User Avatar" class="avatar">
                         <img src="resources/26a7bd3a2a05e740c5a364615b470e8c.jpg" alt="User Avatar" class="avatar ml-2">
                         <img src="resources/85651aa136daefa492090ccf2803ba60.jpg" alt="User Avatar" class="avatar ml-2">
-                        <p class="ml-2 text-sm text-gray-500">+9</p>
+                        <p class="ml-2 text-sm text-gray-500">+4</p>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg p-4 shadow-md col-span-2">
@@ -93,6 +150,41 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <div class="flex items-center">
+                <img src="resources/827346ec925e4ecfc40184bc035d3955.jpg" alt="User Avatar" class="avatar">
+                <div class="ml-4">
+                    <p class="text-3xl font-bold">Martín Carmona</p>
+                    <p class="text-gray-500 text-lg">martin.carmona@alumnos.ucentral.cl</p>
+                </div>
+            </div>
+            <div class="mt-8">
+                <p class="font-semibold text-xl">Información de Usuario</p>
+                <div class="bg-gray-200 p-4 rounded-lg mt-4">
+                    <p class="text-gray-700"><span class="font-semibold">Nombre:</span> Martín Carmona</p>
+                    <p class="text-gray-700"><span class="font-semibold">Correo Electrónico:</span>
+                        martin.carmona@alumnos.ucentral.cl</p>
+                    <p class="text-gray-700"><span class="font-semibold">Teléfono:</span> +56 9 1111 1111</p>
+                    <p class="text-gray-700">
+                        <span class="font-semibold">Dirección:</span> Avenida Chupalong, Lucho Pai, Santiago
+                    </p>
+
+                </div>
+                <!-- Barra de Progreso -->
+                <div class="mt-8">
+                    <p class="font-semibold text-xl">Estado de Reciclaje</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: 12%;"></div>
+                    </div>
+                    <p class="text-gray-700 mt-2">12% Completado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -105,6 +197,25 @@
         L.marker([-33.452537380773265, -70.65370508480063]).addTo(map)
             .bindPopup('Sta Isabel 1186, Santiago, Región Metropolitana')
             .openPopup();
+
+        // Modal functionality
+        var modal = document.getElementById("userModal");
+        var btn = document.getElementById("openModal");
+        var span = document.getElementById("closeModal");
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 
